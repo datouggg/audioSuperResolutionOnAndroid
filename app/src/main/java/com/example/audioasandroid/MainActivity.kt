@@ -464,6 +464,7 @@ fun MusicPlayer(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.steins_gate_hashida_itaru_makise_kurisu_shiina_mayuri_wallpaper), // 替换为专辑封面资源ID
+
                 contentDescription = "Album Cover",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
