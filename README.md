@@ -5,5 +5,4 @@ A audio Super Resolution Deploy In Android
 运行截图如下所示：
 
 
-<img src="snapshots/Screenshot_2024-08-10-17-36-12-645_com.example.audioasandroid.jpg" alt="示例图片" width="300"/>
-<img src="snapshots/Screenshot_2024-08-10-17-36-20-298_com.example.audioasandroid.jpg" alt="示例图片" width="300"/>
+<img src="snapshots/Screenshot_2024-08-10-17-36-12-645_com.example.audioasandroid.jpg" alt="示例图片" width="300"/><img src="snapshots/Screenshot_2024-08-10-17-36-20-298_com.example.audioasandroid.jpg" alt="示例图片" width="300"/>
