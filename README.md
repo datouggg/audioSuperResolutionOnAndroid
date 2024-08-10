@@ -6,6 +6,4 @@ A audio Super Resolution Deploy In Android
 
 
 <img src="snapshots/Screenshot_2024-08-10-17-36-12-645_com.example.audioasandroid.jpg" alt="示例图片" width="300"/>
-
-
-![](snapshots/Screenshot_2024-08-10-17-36-12-645_com.example.audioasandroid.jpg)
+<img src="snapshots/Screenshot_2024-08-10-17-36-20-298_com.example.audioasandroid.jpg" alt="示例图片" width="300"/>
