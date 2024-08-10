@@ -1,14 +1,11 @@
 package com.example.audioasandroid
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.*
 import androidx.compose.animation.core.*
@@ -19,7 +16,6 @@ import org.pytorch.Module
 import org.pytorch.Tensor
 import androidx.compose.ui.Alignment
 import androidx.compose.material3.*
-import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,8 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import java.io.ByteArrayOutputStream
-import java.io.DataInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -221,9 +215,9 @@ class MainActivity : ComponentActivity() {
         //推理！！
         val startTime_ori = System.currentTimeMillis()
         val resultList = mutableListOf<Float>()//存放最终结果
-
+        module_ori = Module.load(assetFilePath(this, "mobile_super_model.pt"))
         for (temp in mutlwave) {
-            val upsample = predict_onebatch(temp)
+            val upsample = predict_onebatch(temp,module_ori)
             resultList.addAll(upsample.toList())
         }
         val endTime_ori = System.currentTimeMillis()
@@ -244,12 +238,13 @@ class MainActivity : ComponentActivity() {
     }
 
     //推理一个时间batch
-    private fun predict_onebatch(floatArray: FloatArray): FloatArray {
+    private fun predict_onebatch(floatArray: FloatArray,module: Module): FloatArray {
         val waveformSize = longArrayOf(1, 1, floatArray.size.toLong())
         val waveformTensor = Tensor.fromBlob(floatArray, waveformSize)
-        module_ori = Module.load(assetFilePath(this, "mobile_super_model.pt"))
-        val modulepath = assetFilePath(this, "mobile_super_model.pt")
-        val upsampleWaveTensor = module_ori.forward(IValue.from(waveformTensor)).toTensor()
+        val timeLoad=System.currentTimeMillis()
+        val upsampleWaveTensor = module.forward(IValue.from(waveformTensor)).toTensor()
+        val forwardTime=System.currentTimeMillis()-timeLoad
+        print(forwardTime)
         val upsampleWaveFloatArray = upsampleWaveTensor.dataAsFloatArray
         return upsampleWaveFloatArray
 
@@ -423,7 +418,7 @@ fun MusicPlayer(
             if (mediaPlayer.isPlaying) {
                 currentPosition = mediaPlayer.currentPosition.toFloat()
             }
-            delay(50)
+            delay(20)
         }
     }
     LaunchedEffect(mediaPlayer) {
